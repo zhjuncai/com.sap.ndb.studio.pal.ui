@@ -7,6 +7,6 @@ Bundle-Activator: com.sap.ndb.studio.pal.ui.Activator
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- com.sap.ndb.studio.catalog;bundle-version="1.0.7000"
+ com.sap.ndb.studio.catalog
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
