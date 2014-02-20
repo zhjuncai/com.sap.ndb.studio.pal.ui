@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: PALUI
-Bundle-SymbolicName: com.sap.ndb.studio.pal.ui
+Bundle-SymbolicName: com.sap.ndb.studio.pal.ui;singleton:=true
 Bundle-Version: 0.0.1
 Bundle-Activator: com.sap.ndb.studio.pal.ui.Activator
 Bundle-Vendor: SAP
