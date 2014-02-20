@@ -12,7 +12,7 @@
             icon="icons/sample.gif"
             category="ViewPlugin"
             class="com.sap.ndb.studio.pal.ui.PALView"
-            id="com.sap.ndb.studio.pal.ui.PALView">
+            id="com.sap.ndb.studio.pal.ui.view.PALView">
       </view>
    </extension>
       <extension

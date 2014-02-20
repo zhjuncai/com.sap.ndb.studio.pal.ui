@@ -1,4 +1,4 @@
-package com.sap.ndb.studio.pal.ui;
+package com.sap.ndb.studio.pal.ui.view;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.*;
 
