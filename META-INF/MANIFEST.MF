@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PALUI
+Bundle-SymbolicName: com.sap.ndb.studio.pal.ui
+Bundle-Version: 0.0.1
+Bundle-Activator: com.sap.ndb.studio.pal.ui.Activator
+Bundle-Vendor: SAP
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.sap.ndb.studio.catalog;bundle-version="1.0.7000"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
