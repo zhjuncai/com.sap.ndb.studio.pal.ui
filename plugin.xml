@@ -33,5 +33,60 @@
             file="contexts.xml">
       </contexts>
    </extension>
-
+<extension point="org.eclipse.ui.menus">
+      <menuContribution
+      		allPopups="false"
+      		locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+        <command
+             commandId="com.sap.ndb.studio.pal.ui.command.pal"
+             label="PAL"
+             style="push">
+           <visibleWhen
+                  checkEnabled="false">
+               	   <with
+                      variable="selection">
+                      <and>
+                      <count
+                            value="1">
+                      </count>
+                      <reference
+                            definitionId="com.sap.ndb.studio.pal.ui.definition.validtable">
+                      </reference>
+                   </and>
+                </with>
+               </visibleWhen>
+         </command>    
+        </menuContribution>
+     </extension>
+     <extension point="org.eclipse.ui.handlers">
+     	 <handler
+            class="com.sap.ndb.studio.pal.ui.handler.Palhandler"
+            commandId="com.sap.ndb.studio.pal.ui.command.pal">
+         <activeWhen>
+            <reference
+                  definitionId="com.sap.ndb.studio.pal.ui.definition.validtable">
+            </reference>
+         </activeWhen>        
+      </handler>
+     </extension>
+     <extension
+        point="org.eclipse.core.expressions.definitions">
+        
+        <definition
+        	id = "com.sap.ndb.studio.pal.ui.definition.validtable">
+        	 <with
+                 variable="selection">
+              <and>
+                 <count
+                       value="1">
+                 </count>
+        		 <iterate>
+                            <instanceof
+                                  value="com.sap.ndb.studio.catalog.ITableNDB">
+                            </instanceof>
+                   </iterate>
+                   </and>
+           </with> 
+        	</definition>
+       </extension>
 </plugin>
