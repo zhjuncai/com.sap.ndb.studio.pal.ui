@@ -1,7 +1,12 @@
 package com.sap.ndb.studio.pal.ui.handler;
 
-import org.eclipse.core.commands.*;
-import org.eclipse.ui.*;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+
+
 
 
 
@@ -17,7 +22,7 @@ public class PalHandler extends AbstractHandler {
 		ISelectionService service = window.getSelectionService();
 		// set structured selection
 		IStructuredSelection structured = (IStructuredSelection) service.getSelection();*/
-	    
+	    System.out.print("testpal");
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.sap.ndb.studio.pal.ui.view.PALView");
 		} catch (PartInitException e) {
