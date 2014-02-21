@@ -60,7 +60,7 @@
      </extension>
      <extension point="org.eclipse.ui.handlers">
      	 <handler
-            class="com.sap.ndb.studio.pal.ui.handler.Palhandler"
+            class="com.sap.ndb.studio.pal.ui.handler.PalHandler"
             commandId="com.sap.ndb.studio.pal.ui.command.pal">
          <activeWhen>
             <reference
