@@ -1,4 +1,4 @@
-package src.com.sap.ndb.studio.pal.ui;
+package com.sap.ndb.studio.pal.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
