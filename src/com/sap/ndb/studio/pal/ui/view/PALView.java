@@ -79,6 +79,7 @@ public class PALView extends ViewPart {
 		comboBox.add(PALModel.SocialNetWorkAnalysis, 7);
 		comboBox.add(PALModel.Miscellaneous, 8);
 		comboBox.select(0);
+		
 
 		// Dropdownlist for detail algorithms based on the category
 		final Combo comboBox2 = new Combo(parent, SWT.NONE);
