@@ -101,6 +101,7 @@ public class PALView extends ViewPart {
 	}
 
 	public void setFocus() {
+		
 		viewer.getControl().setFocus();
 	}
 }

@@ -44,9 +44,9 @@ public class ClusteringAlg {
 		sqlString.add("CREATE COLUMN TABLE PAL_AP_DATA_TBL LIKE PAL_AP_DATA_T");
 		tempSql = "SELECT ID ";
 		for(int i=0;i<columnName.length;i++){
-			tempSql += ","+columnName[i];
+			tempSql += ", "+columnName[i];
 		}
-		tempSql += "from" + tableName + "INTO PAL_AP_DATA_TBL";
+		tempSql += " from " + tableName + " INTO PAL_AP_DATA_TBL";
 		sqlString.add(tempSql);
 		sqlString.add("DROP TABLE PAL_AP_SEED_TBL");
 		sqlString.add("CREATE COLUMN TABLE PAL_AP_SEED_TBL LIKE PAL_AP_SEED_T");
@@ -64,5 +64,6 @@ public class ClusteringAlg {
 		sqlString.add("DROP TABLE PAL_AP_RESULTS_TBL");
 		sqlString.add("CREATE COLUMN TABLE PAL_AP_RESULTS_TBL LIKE PAL_AP_RESULTS_T");
 		sqlString.add("CALL _SYS_AFL.PAL_AP(PAL_AP_DATA_TBL, PAL_AP_SEED_TBL, #PAL_CONTROL_TBL, PAL_AP_RESULTS_TBL) with OVERVIEW");
+		sqlString.add("commit");
 	}
 }
