@@ -7,6 +7,7 @@ Bundle-Activator: com.sap.ndb.studio.pal.ui.Activator
 Bundle-Vendor: SAP
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
+<<<<<<< HEAD
  com.sap.ndb.studio.catalog,
  com.sap.ndb.studio.sql;bundle-version="1.0.62",
  org.eclipse.ui.ide;bundle-version="3.8.2",
@@ -14,4 +15,8 @@ Require-Bundle: org.eclipse.ui,
  com.sap.ndb.studio.admin.model;bundle-version="1.0.62",
  com.sap.ui.controls.swt;bundle-version="3.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+=======
+ com.sap.ndb.studio.catalog
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+>>>>>>> 07fcd38a2be74630e88b58eefdc7aa839241daff
 Bundle-ActivationPolicy: lazy
