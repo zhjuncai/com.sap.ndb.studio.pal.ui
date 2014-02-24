@@ -22,7 +22,7 @@ public class PalHandler extends AbstractHandler {
 		ISelectionService service = window.getSelectionService();
 		// set structured selection
 		IStructuredSelection structured = (IStructuredSelection) service.getSelection();*/
-	    System.out.print("testpal");
+
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.sap.ndb.studio.pal.ui.view.PALView");
 		} catch (PartInitException e) {
