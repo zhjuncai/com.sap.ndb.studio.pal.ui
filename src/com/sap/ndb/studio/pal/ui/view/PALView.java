@@ -7,10 +7,13 @@ import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.*;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.sap.ndb.studio.catalog.IConnectionResource;
 import com.sap.ndb.studio.pal.ui.model.*;
 import com.sap.ndb.studio.pal.ui.sql.ClusteringAlg;
 
@@ -23,13 +26,22 @@ public class PALView extends ViewPart {
 	private String[] columnName;
 	private String[] columnType;
 	private ArrayList<String> sqlString;
+	private IConnectionResource resource;
 	
 	
 	 
 	public PALView() {
 
 	}
-    public PALView(ExecutionEvent event){
+    public PALView(IConnectionResource resource){
+    	
+    	this.resource = resource;
+    	try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.sap.ndb.studio.pal.ui.view.PALView");
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     }
 	public void createPartControl(final Composite parent) {

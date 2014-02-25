@@ -11,6 +11,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.sap.ndb.studio.catalog.IConnectionResource;
 import com.sap.ndb.studio.pal.ui.action.ShowResultAction;
+import com.sap.ndb.studio.pal.ui.view.PALView;
 
 public class PalHandler extends AbstractHandler {
 	
@@ -23,8 +24,10 @@ public class PalHandler extends AbstractHandler {
 		if (selection instanceof IStructuredSelection) {
 			Object element = ((IStructuredSelection) selection).getFirstElement();
 			if (element instanceof IConnectionResource) {				
-				ShowResultAction action = new ShowResultAction();
-				action.run((IConnectionResource)element);
+				/*ShowResultAction action = new ShowResultAction();
+				action.run((IConnectionResource)element);*/
+				PALView view = new PALView((IConnectionResource) element);
+				
 			}
 /*		// get workbench window
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
@@ -33,13 +36,6 @@ public class PalHandler extends AbstractHandler {
 		// set structured selection
 		IStructuredSelection structured = (IStructuredSelection) service.getSelection();*/
 
-		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.sap.ndb.studio.pal.ui.view.PALView");
-		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		}
 		return null;
 	}
