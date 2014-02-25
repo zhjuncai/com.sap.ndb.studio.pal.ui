@@ -102,7 +102,7 @@ public class ShowResultJob extends StatusCallableJob{
 					NLS.bind(Resources.No_Content_Found_YMSG, resource.toString()));
 		}
 
-		return null;
+		return Status.OK_STATUS;
 	}
 
 	private void subPalSQL(IConnectionResource resource,Connection connection) throws SQLException{
