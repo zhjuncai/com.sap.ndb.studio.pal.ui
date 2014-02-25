@@ -5,6 +5,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -26,7 +27,16 @@ public class PalHandler extends AbstractHandler {
 			if (element instanceof IConnectionResource) {				
 				/*ShowResultAction action = new ShowResultAction();
 				action.run((IConnectionResource)element);*/
-				PALView view = new PALView((IConnectionResource) element);
+				//PALView view = new PALView((IConnectionResource) element);
+				PALView.resource = (IConnectionResource) element;
+			
+		    	try {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.sap.ndb.studio.pal.ui.view.PALView");
+					
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 /*		// get workbench window
