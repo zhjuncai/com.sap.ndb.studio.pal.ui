@@ -1,5 +1,6 @@
 package com.sap.ndb.studio.pal.ui.view;
 
+import java.sql.*;
 import java.util.ArrayList;
 
 import org.eclipse.core.commands.ExecutionEvent;
@@ -7,10 +8,15 @@ import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.*;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+
+import com.sap.ndb.studio.catalog.IConnectionResource;
+import com.sap.ndb.studio.catalog.ITableSDB;
 import com.sap.ndb.studio.pal.ui.model.*;
 import com.sap.ndb.studio.pal.ui.sql.ClusteringAlg;
 
@@ -23,15 +29,35 @@ public class PALView extends ViewPart {
 	private String[] columnName;
 	private String[] columnType;
 	private ArrayList<String> sqlString;
+	//private  IConnectionResource resource;
+	public static IConnectionResource resource;
 	
 	
 	 
 	public PALView() {
 
 	}
-    public PALView(ExecutionEvent event){
+    public PALView(IConnectionResource resource){
     	
+/*  	this.resource = resource;
+  	sprint();
+  	try {
+		  PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.sap.ndb.studio.pal.ui.view.PALView");
+		
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+    	//System.out.print("constortur");
+    
     }
+    public void sprint(){
+    	System.out.print("resource:");
+		System.out.print(resource.getSchemaFolder().getName());
+		System.out.print(resource.getName());
+		System.out.print(resource.getConnection());
+    }
+    
 	public void createPartControl(final Composite parent) {
 		
 /*		RowLayout rowlayout = new RowLayout(SWT.VERTICAL);
@@ -42,6 +68,8 @@ public class PALView extends ViewPart {
 		
 		
 		
+		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL| SWT.FULL_SELECTION | SWT.BORDER);
+    	
 		
 	    GridLayout layout = new GridLayout(2, false);
 		parent.setLayout(layout);
@@ -56,15 +84,15 @@ public class PALView extends ViewPart {
 		group.setText("Select Columns");
 		
 		group.setLayout(new GridLayout(1,false));
+		
+		getAllColumn(group);
 			
-		Button button1 = new Button(group,SWT.CHECK);
+/*		Button button1 = new Button(group,SWT.CHECK);
 		button1.setText("column1");
-		
-		
 		Button button2 = new Button(group,SWT.CHECK);
 		button2.setText("column2");
 		Button button3 = new Button(group,SWT.CHECK);
-		button3.setText("column3");
+		button3.setText("column3");*/
 		
 		
 		// Dropdownlist for PAL function category
@@ -79,6 +107,7 @@ public class PALView extends ViewPart {
 		comboBox.add(PALModel.SocialNetWorkAnalysis, 7);
 		comboBox.add(PALModel.Miscellaneous, 8);
 		comboBox.select(0);
+		
 
 		// Dropdownlist for detail algorithms based on the category
 		final Combo comboBox2 = new Combo(parent, SWT.NONE);
@@ -88,7 +117,37 @@ public class PALView extends ViewPart {
 			}
 		});
 	}
-
+    
+	private void getAllColumn(Group group) {
+		
+		Connection conn = resource.getConnection();			
+		ITableSDB tbl = (ITableSDB) resource;	
+		String sqlStatement = "SELECT COLUMN_NAME, DATA_TYPE_NAME, LENGTH FROM \"SYS\".\"TABLE_COLUMNS\" WHERE \"SCHEMA_NAME\" = '"+ tbl.getSchema() + "' AND \"TABLE_NAME\" = '"+tbl.getName() +"'";
+		
+		int i = 0;
+		String btnText = null;
+		
+		ResultSet rs = null;
+		try{
+		Statement st = conn.createStatement();
+		rs = st.executeQuery(sqlStatement);
+		ArrayList<Button> buttons = new ArrayList<Button>();
+		while(rs.next())
+		{
+			Button btn = new Button(group,SWT.CHECK);
+			btnText = rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getInt(3);
+			btn.setText(btnText);
+			buttons.add(btn);
+			i++;
+			
+		}
+		}
+		catch(Exception e){
+			
+		}
+		
+		
+	}
 	//Create dropdownlist options
 	private void createDynCombo(final Composite parent, final Combo comboBox, int index) {
 /*		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
