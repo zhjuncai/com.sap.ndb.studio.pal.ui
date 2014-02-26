@@ -135,7 +135,7 @@ public class PALView extends ViewPart {
 		while(rs.next())
 		{
 			Button btn = new Button(group,SWT.CHECK);
-			btnText = rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getInt(3);
+			btnText = formatColumnName(rs.getString(1))+formatColumnType(rs.getString(2))+"  "+rs.getInt(3);
 			btn.setText(btnText);
 			buttons.add(btn);
 			i++;
@@ -280,5 +280,19 @@ public class PALView extends ViewPart {
 	public void setFocus() {
 		
 		viewer.getControl().setFocus();
+	}
+	public static String formatColumnName(String columnname){
+		String temp=columnname;
+		while(temp.length()<20){
+			temp+=" ";
+		}
+		return temp;
+	}
+	public static String formatColumnType(String columntype){
+		String temp=columntype;
+		while(temp.length()<15){
+			temp+=" ";
+		}
+		return temp;
 	}
 }
