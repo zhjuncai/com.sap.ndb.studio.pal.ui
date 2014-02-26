@@ -209,7 +209,7 @@ public class PALView extends ViewPart {
 				parameter[8] = txtMinkowP.getText();
 				parameter[9] = txtClusterNumber.getText();
 				
-				ClusteringAlg.AffinityPropagation(sqlString, schema, tableName, parameter, columnName, columnType);
+				//ClusteringAlg.AffinityPropagation(sqlString, schema, tableName, parameter, columnName, columnType);
 
                 
 			}

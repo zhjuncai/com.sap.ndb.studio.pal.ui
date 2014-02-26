@@ -5,6 +5,7 @@ import org.eclipse.ui.part.EditorPart;
 import com.sap.ndb.studio.catalog.IConnectionResource;
 import com.sap.ndb.studio.images.Images;
 import com.sap.ndb.studio.pal.ui.ResultStudioUIPlugin;
+import com.sap.ndb.studio.pal.ui.SelectedPalInfo;
 import com.sap.ndb.studio.sql.action.CatalogObjectAction;
 import com.sap.ndb.studio.sql.editor.common.ResourceEditorInput;
 import com.sap.ndb.studio.sql.SQLStudioUIPlugin;
@@ -13,10 +14,14 @@ public class ShowResultAction extends CatalogObjectAction{
 
 	private static String ID = "com.sap.ndb.studio.pal.ui.action.ShowResultAction";
 	private EditorPart     m_parent;
+	private SelectedPalInfo palinfo;
 	public ShowResultAction() {
     	m_parent = null;
     }
-    
+	public ShowResultAction(SelectedPalInfo palinfo) {
+    	m_parent = null;
+    	this.palinfo = palinfo;
+    }
     public ShowResultAction(String name) {
     	super(name);
     	m_parent = null;
@@ -44,7 +49,7 @@ public void setActiveEditor(IEditorPart targetEditor) {
     public void run(IConnectionResource resource)  {
         
     	if(resource == null) return;    	
-		ResultStudioUIPlugin.showResult(resource);
+		ResultStudioUIPlugin.showResult(resource,palinfo);
     }    
 
 }

@@ -21,7 +21,9 @@ import com.sap.ndb.studio.catalog.IConnectionResource;
 import com.sap.ndb.studio.catalog.ITableNDB;
 import com.sap.ndb.studio.catalog.ITableSDB;
 import com.sap.ndb.studio.common.StatusCallableJob;
+import com.sap.ndb.studio.pal.ui.OpenEditorView;
 import com.sap.ndb.studio.pal.ui.ResultStudioUIPlugin;
+import com.sap.ndb.studio.pal.ui.SelectedPalInfo;
 import com.sap.ndb.studio.pal.ui.sql.ClusteringAlg;
 import com.sap.ndb.studio.sql.SQLStudioUIPlugin;
 import com.sap.ndb.studio.sql.editor.CatalogEditorInput;
@@ -34,15 +36,16 @@ public class ShowResultJob extends StatusCallableJob{
 	private IConnectionResource resource;
 	private SQLStudioPreferences sqlStudioPreferences;
 	private IWorkbenchPage page;
+	private SelectedPalInfo palinfo;
 	
 	
-	public ShowResultJob(String name, IConnectionResource resource, SQLStudioPreferences sqlStudioPreferences, IWorkbenchPage page) {
+	public ShowResultJob(String name, IConnectionResource resource, SQLStudioPreferences sqlStudioPreferences, IWorkbenchPage page,SelectedPalInfo palinfo) {
 		super(name);
 		this.resource = resource;
 		this.sqlStudioPreferences = sqlStudioPreferences;
 		Assert.isNotNull(resource);
 		Assert.isNotNull(sqlStudioPreferences);
-
+		this.palinfo = palinfo;
 		this.page = page;
 	}
 	
@@ -72,17 +75,14 @@ public class ShowResultJob extends StatusCallableJob{
 				
 				
 				if (connection != null) {
-					String query = null; //$NON-NLS-1$
-
-					if (resource instanceof ITableNDB) {
-						subPalSQL((IConnectionResource)resource,connection);
-						ITableSDB table = (ITableSDB) resource;
-						query = "SELECT TOP "+sqlStudioPreferences.getForwardOnlyMaxRow()  + " * FROM \"" + table.getSchema() + "\"."+"\""+"PAL_AP_RESULTS_TBL"+"\"";
-					}
+					String query = null; //$NON-NLS-1
+					subPalSQL(resource,connection,palinfo);
+					ITableSDB table = (ITableSDB) resource;
+					query = "SELECT TOP "+sqlStudioPreferences.getForwardOnlyMaxRow()  + " * FROM \"" + table.getSchema() + "\"."+"\""+"PAL_AP_RESULTS_TBL"+"\"";
+					
 					
 					final CatalogEditorInput editorInput = new CatalogEditorInput(resource);
 					final String tmpQuery = query;
-
 					monitor.subTask("Opening Editor");
 					editor = OpenEditorHelper.openResultEditorInUI(editorInput, tmpQuery, page);
 					monitor.worked(1);
@@ -105,13 +105,10 @@ public class ShowResultJob extends StatusCallableJob{
 		return Status.OK_STATUS;
 	}
 
-	private void subPalSQL(IConnectionResource resource,Connection connection) throws SQLException{
+	private void subPalSQL(IConnectionResource resource,Connection connection,SelectedPalInfo palinfo) throws SQLException{
 		ArrayList<String> alist = new ArrayList<String>();
 		ITableSDB table = (ITableSDB) resource;
-		String[] parameter={"2","500","100","0.9","0.5","1","1","2","3","0"};
-		String[] columnName={"ATTRIB1","ATTRIB2"};
-		String[] columnType={"DOUBLE","DOUBLE"};
-		ClusteringAlg.AffinityPropagation(alist,table.getSchema(),table.getName(),parameter,columnName,columnType);
+		ClusteringAlg.AffinityPropagation(alist,table.getSchema(),table.getName(),palinfo);
 		Iterator<String> it = alist.iterator();
 		Statement truncTableStmt = connection.createStatement();
 		while(it.hasNext()){

@@ -2,10 +2,15 @@ package com.sap.ndb.studio.pal.ui.sql;
 
 import java.util.ArrayList;
 
+import com.sap.ndb.studio.pal.ui.SelectedPalInfo;
+
 
 public class ClusteringAlg {
-	public static void AffinityPropagation(ArrayList<String> sqlString,String schema,String tableName,String[] parameter,String[] columnName,String[] columnType){
+	public static void AffinityPropagation(ArrayList<String> sqlString,String schema,String tableName,SelectedPalInfo palinfo){
 		sqlString.clear();
+		String [] columnName = palinfo.getColumnname();
+		String [] columnType = palinfo.getColumntype();
+		String [] parameter =palinfo.getParameter();
 		sqlString.add("set SCHEMA " + schema);
 		sqlString.add("DROP TYPE PAL_AP_DATA_T");
 		String tempSql = null;
